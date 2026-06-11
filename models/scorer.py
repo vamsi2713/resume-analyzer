@@ -1,13 +1,5 @@
-from sentence_transformers import SentenceTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-
-model = SentenceTransformer('all-MiniLM-L6-v2')
-
-def get_semantic_score(resume_text, jd_text):
-    embeddings = model.encode([resume_text, jd_text])
-    score = cosine_similarity([embeddings[0]], [embeddings[1]])[0][0]
-    return round(float(score) * 100, 2)
 
 def get_tfidf_score(resume_text, jd_text):
     vectorizer = TfidfVectorizer()
@@ -26,13 +18,11 @@ def get_skill_gaps(resume_text, jd_text):
     return list(matched), list(missing)
 
 def get_final_score(resume_text, jd_text):
-    semantic = get_semantic_score(resume_text, jd_text)
     tfidf = get_tfidf_score(resume_text, jd_text)
-    final = round(0.7 * semantic + 0.3 * tfidf, 1)
     matched, missing = get_skill_gaps(resume_text, jd_text)
     return {
-        "score": min(final, 100),
-        "semantic_score": semantic,
+        "score": min(tfidf, 100),
+        "semantic_score": tfidf,
         "tfidf_score": tfidf,
         "matched_skills": matched,
         "missing_skills": missing
