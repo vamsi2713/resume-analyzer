@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Resume Analyzer</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Resume & Job Fit Analyzer</h1>
+      <p>
+        Upload your resume and paste a job description to get your match score.
+      </p>
+      <form action="/analyze" method="POST" enctype="multipart/form-data">
+        <label>Upload Resume (PDF)</label>
+        <input type="file" name="resume" accept=".pdf" required />
+
+        <label>Paste Job Description</label>
+        <textarea
+          name="job_description"
+          rows="10"
+          placeholder="Paste the full job description here..."
+          required
+        ></textarea>
+
+        <button type="submit">Analyze My Resume</button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Your Results</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Your Fit Score: {{ results.score }} / 100</h1>
+
+      <div class="score-box">
+        <p>Semantic Match: <strong>{{ results.semantic_score }}%</strong></p>
+        <p>Keyword Match: <strong>{{ results.tfidf_score }}%</strong></p>
+      </div>
+
+      <h2>Matched Skills</h2>
+      <p class="green">
+        {{ results.matched_skills | join(', ') or 'None detected' }}
+      </p>
+
+      <h2>Missing Skills</h2>
+      <p class="red">
+        {{ results.missing_skills | join(', ') or 'None — great match!' }}
+      </p>
+
+      <a href="/" class="btn">Analyze Another</a>
+    </div>
+  </body>
+</html>

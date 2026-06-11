@@ -1,0 +1,8 @@
+flask
+sentence-transformers
+scikit-learn
+xgboost
+pymupdf
+openai
+numpy
+gunicorn
